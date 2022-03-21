@@ -4,12 +4,16 @@ import io.appium.java_client.windows.WindowsDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static constants.EmailComposeConstants.*;
 import static constants.LandingPageConstants.*;
 
+
 public class OutlookFactory {
     private WindowsDriver driver;
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public OutlookFactory(WindowsDriver windowsDriver) {
         this.driver = windowsDriver;
@@ -23,14 +27,13 @@ public class OutlookFactory {
         return driver.findElementByClassName(acceptableWindowClassName);
     }
 
-    public WebElement acceptButton(){
+    public WebElement acceptButton() {
         return driver.findElementByName(acceptButton);
     }
 
-    public List<WebElement>closeButtons(){
+    public List<WebElement> closeButtons() {
         return driver.findElementsByName(windowCloseButton);
     }
-
 
     public WebElement menuInbox() {
         return driver.findElementByXPath(inboxXpath);
@@ -53,6 +56,10 @@ public class OutlookFactory {
     }
 
     public WebElement mailToEditText() {
+        return driver.findElementByAccessibilityId(toMailEditIdOld);
+    }
+
+    public WebElement mailToEditTextNew() {
         return driver.findElementByAccessibilityId(toMailEditId);
     }
 
@@ -65,45 +72,51 @@ public class OutlookFactory {
     }
 
     public WebElement yesButtonInPopUp() {
-        return driver.findElementByName("Yes");
+        return driver.findElementByName(popUpYesName);
     }
 
     public WebElement subjectEditText() {
-        return driver.findElementByAccessibilityId("4101");
+        return driver.findElementByAccessibilityId(subjectEditAccessibilityId);
     }
 
     public WebElement mailText() {
-        return driver.findElementByClassName("_WwG");
+        return driver.findElementByClassName(mailTextClassName);
+    }
+
+    public String titleBar() {
+        String title = driver.findElementByClassName("NetUIOfficeCaption").getText();
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(title);
+        return matcher.toString();
     }
 
     public List<WebElement> receivedMails() {
-        return driver.findElementsByClassName("LeafRow");
+        return driver.findElementsByClassName(receivedMailsClassName);
     }
 
     public WebElement openedMail() {
         return driver.findElementByAccessibilityId(openedMailId);
     }
 
-    public WebElement replySendButton(){
-        return driver.findElementByName("Send");
+    public WebElement replySendButton() {
+        return driver.findElementByName(replySendButtonName);
     }
+
     public WebElement openedMailBody() {
         return driver.findElementByAccessibilityId("Body");
     }
 
-    public WebElement replyWindow(){
+    public WebElement replyWindow() {
         return driver.findElementByClassName("_WwG");
 
     }
 
-    public WebElement replyButton(){
+    public WebElement replyButton() {
         return driver.findElementByName("Reply");
     }
 
-    public WebElement deleteButton(){
+    public WebElement deleteButton() {
         return driver.findElementByName("Delete");
     }
-
 
 
 }

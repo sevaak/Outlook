@@ -3,7 +3,6 @@ package Utils;
 import factory.OutlookFactory;
 import io.appium.java_client.windows.WindowsDriver;
 import io.appium.java_client.windows.WindowsElement;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
@@ -24,7 +23,7 @@ public class Helpers {
         List<String> windowHandleLists = oldDriver.getWindowHandles().stream().toList();
         System.out.println(windowHandleLists.size());
         for (int i = 0; i < windowHandleLists.size(); i++) {
-            System.out.println("Window Handles before opening: " + windowHandleLists.stream().toList().get(i));
+            System.out.println(" " + windowHandleLists.stream().toList().get(i));
             outlookFactory.emailComposeButton().click();
             Thread.sleep(1000);
         }

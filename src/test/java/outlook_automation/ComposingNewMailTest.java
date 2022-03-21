@@ -1,50 +1,34 @@
 package outlook_automation;
+
+
 import factory.OutlookFactory;
 import io.appium.java_client.windows.WindowsDriver;
 import io.appium.java_client.windows.WindowsElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import static constants.EmailComposeConstants.*;
 
-import static constants.EmailComposeConstants.mail;
-import static constants.EmailComposeConstants.subjectText;
-import static constants.LandingPageConstants.appCap;
-import static constants.LandingPageConstants.outlookPath;
-
-public class ComposingNewMailTest {
+public class ComposingNewMailTest extends BaseTest {
     private WindowsDriver outlookSession = null;
     private WindowsDriver newMailSession = null;
     public OutlookFactory outlookFactory = null;
 
-    @BeforeClass
-    public void setup() {
-        System.out.println("setup");
-        DesiredCapabilities outlookCapabilities = new DesiredCapabilities();
-        outlookCapabilities.setCapability(appCap, outlookPath);
-        try {
-            outlookSession = new WindowsDriver<WindowsElement>(new URL("http://172.16.112.192:4444/wd/hub"), outlookCapabilities);
-            outlookFactory = new OutlookFactory(outlookSession);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
+    @Test()
     public void newEmail() throws MalformedURLException, InterruptedException {
+        outlookFactory.menuInbox().click();
         List<String> windowHandleLists = outlookSession.getWindowHandles().stream().toList();
         System.out.println(windowHandleLists.size());
         for (int i = 0; i < windowHandleLists.size(); i++) {
             System.out.println("Window Handles before opening: " + windowHandleLists.stream().toList().get(i));
         }
-        outlookFactory.contextElement().click();
+
         outlookFactory.emailComposeButton().click();
         Thread.sleep(1000);
-
 
 
         List<String> mailWindowHandles = outlookSession.getWindowHandles().stream().toList();
@@ -64,7 +48,6 @@ public class ComposingNewMailTest {
         outlookFactory.mailText().click();
         outlookFactory.mailText().sendKeys("It Was Send By Automated Software");
         outlookFactory.mailSendButton().click();
-
 
     }
 }

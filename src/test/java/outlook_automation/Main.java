@@ -3,13 +3,11 @@ package outlook_automation;
 import org.testng.TestListenerAdapter;
 import org.testng.TestNG;
 
-import java.io.IOException;
-
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         TestListenerAdapter tla = new TestListenerAdapter();
         TestNG testng = new TestNG();
-        testng.setTestClasses(new Class[]{OutlookActivation.class});
+        testng.setTestClasses(new Class[]{RunTests.class});
         testng.addListener(tla);
         testng.run();
     }

@@ -3,7 +3,7 @@
 <suite name="Parallel Testing Suite" parallel="tests" thread-count="2">
     <test name="Outlook Test">
         <classes>
-            <class name="outlook_automation.SubjectTest"/>
+            <class name="outlook_automation.RunTests"/>
         </classes>
     </test>
 </suite>
