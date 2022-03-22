@@ -56,7 +56,7 @@ public class OutlookFactory {
     }
 
     public WebElement mailToEditText() {
-        return driver.findElementByAccessibilityId(toMailEditIdOld);
+        return driver.findElementByAccessibilityId(toMailEditId);
     }
 
     public WebElement mailToEditTextNew() {
@@ -102,7 +102,7 @@ public class OutlookFactory {
     }
 
     public WebElement openedMailBody() {
-        return driver.findElementByAccessibilityId("Body");
+        return driver.findElementByAccessibilityId(openedMailClassName);
     }
 
     public WebElement replyWindow() {
@@ -111,11 +111,15 @@ public class OutlookFactory {
     }
 
     public WebElement replyButton() {
-        return driver.findElementByName("Reply");
+        return driver.findElementByName(replyButtonName);
     }
 
     public WebElement deleteButton() {
-        return driver.findElementByName("Delete");
+        return driver.findElementByName(deleteButtonName);
+    }
+
+    public WebElement closePopUp() {
+        return driver.findElementByClassName(closeNewMailPopUpWindow);
     }
 
 

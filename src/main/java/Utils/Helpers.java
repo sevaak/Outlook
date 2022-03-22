@@ -9,6 +9,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import static constants.LandingPageConstants.appTopLevelCap;
+import static constants.LandingPageConstants.localHost;
+
 public class Helpers {
     private WindowsDriver firstSessionDriver;
     private OutlookFactory outlookFactory;
@@ -18,38 +21,44 @@ public class Helpers {
 
     }
 
+    public void newEmailCompose(String recipient, String subject, String mailText) {
+        outlookFactory.mailToEditText().sendKeys(recipient);
+        outlookFactory.subjectEditText().sendKeys(subject);
+        outlookFactory.mailText().click();
+        outlookFactory.mailText().sendKeys(mailText);
+
+    }
+
+
     public WindowsDriver getNewEmailWindowFocus(WindowsDriver oldDriver) throws InterruptedException, MalformedURLException {
         outlookFactory = new OutlookFactory(oldDriver);
-        List<String> windowHandleLists = oldDriver.getWindowHandles().stream().toList();
-        System.out.println(windowHandleLists.size());
-        for (int i = 0; i < windowHandleLists.size(); i++) {
-            System.out.println(" " + windowHandleLists.stream().toList().get(i));
-            outlookFactory.emailComposeButton().click();
-            Thread.sleep(1000);
-        }
+        outlookFactory.menuInbox().click();
+        outlookFactory.emailComposeButton().click();
+        Thread.sleep(1000);
         List<String> mailWindowHandles = oldDriver.getWindowHandles().stream().toList();
-        System.out.println(mailWindowHandles.size());
-        for (int i = 0; i < mailWindowHandles.size(); i++) {
-            System.out.println(mailWindowHandles.get(i));
-        }
         String handleElement = mailWindowHandles.get(0);
         DesiredCapabilities newEmailCaps = new DesiredCapabilities();
-        newEmailCaps.setCapability("appTopLevelWindow", handleElement);
-
-        WindowsDriver newDriver = new WindowsDriver<WindowsElement>(new URL("http://127.0.0.1:4723"), newEmailCaps);
+        newEmailCaps.setCapability(appTopLevelCap, handleElement);
+        WindowsDriver newDriver = new WindowsDriver<WindowsElement>(new URL(localHost), newEmailCaps);
         outlookFactory = new OutlookFactory(newDriver);
         return newDriver;
     }
 
-    public WindowsDriver getMainSession(WindowsDriver oldDriver){
+
+    public WindowsDriver getMainSession(WindowsDriver oldDriver) {
         List<String> mailWindowHandles = oldDriver.getWindowHandles().stream().toList();
         System.out.println(mailWindowHandles.size());
         for (int i = 0; i < mailWindowHandles.size(); i++) {
             System.out.println(mailWindowHandles.get(i));
         }
-
         return oldDriver;
     }
 
-
+    public void closeNewMailWindowPopUpForDraft() {
+        outlookFactory.closeWindow().click();
+        if (outlookFactory.closePopUp().isDisplayed()) {
+            outlookFactory.closePopUp().click();
+            outlookFactory.yesButtonInPopUp().click();
+        }
+    }
 }

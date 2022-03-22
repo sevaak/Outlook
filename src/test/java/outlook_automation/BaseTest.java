@@ -27,7 +27,7 @@ public class BaseTest {
     @BeforeClass
     public void setup() {
         DesiredCapabilities outlookCapabilities = new DesiredCapabilities();
-        outlookCapabilities.setCapability(appCap, outlookPath);
+        outlookCapabilities.setCapability(appCap, localOutlookPath);
         outlookCapabilities.setCapability(waitAppCap, 5);
         try {
             outlookSession = new WindowsDriver<WindowsElement>(new URL(localHost), outlookCapabilities);
@@ -37,14 +37,6 @@ public class BaseTest {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-    }
-
-    public void clickOnMail(WebElement menuElement) {
-        menuElement.click();
-        outlookFactory.contextElement().click();
-        List<WebElement> mailsList = outlookFactory.receivedMails();
-        mailsList.get(0).click();
-
     }
 
     public WebElement selectMail(int mailNumber) {
