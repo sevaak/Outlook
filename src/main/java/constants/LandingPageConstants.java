@@ -11,7 +11,6 @@ public class LandingPageConstants {
     public static final String windowCloseButton = "Close";
     public static final String acceptableWindowClassName = "NetUINetUIDialog";
     public static final String acceptButton = "Accept";
-    public static final String gmailTabName = "[Gmail]";
     public static final String outboxTabName = "Outbox";
     public static final String contextMenu = "Table View";
     public static final String inboxXpath = "//TreeItem[contains(@Name,\"Inbox\")]";
