@@ -5,6 +5,7 @@ public class LandingPageConstants {
     public static final String appTopLevelCap = "appTopLevelWindow";
     public static final String waitAppCap = "ms:waitForAppLaunch";
     public static final String localHost = "http://localhost:4723";
+    public static final String remoteHost="http://10.32.0.17:4723/wd/hub";
     public static final String outlookPath = "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE";
     public static final String localOutlookPath = "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE";
     public static final String activationWindowClassName = "NUIDialog";
@@ -24,4 +25,6 @@ public class LandingPageConstants {
     public static final String replySendButtonName = "Send";
     public static final String attributeName = "Name";
     public static final String attributeSubject = ", Subject ";
+
+
 }

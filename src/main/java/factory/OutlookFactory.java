@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import static constants.EmailComposeConstants.*;
 import static constants.LandingPageConstants.*;
+import static constants.PluginConstants.*;
 
 
 public class OutlookFactory {
@@ -120,6 +121,28 @@ public class OutlookFactory {
 
     public WebElement closePopUp() {
         return driver.findElementByClassName(closeNewMailPopUpWindow);
+    }
+
+
+    //Zero Plugin
+    public WebElement zeroMoveItem() {
+        return driver.findElementByName(zeroMoveName);
+    }
+
+    public List<WebElement> headerGroups() {
+        return driver.findElementsByClassName(headerGroupsClassName);
+    }
+
+    public WebElement zeroMoveContext() {
+        return driver.findElementByClassName(zeroMoveContextMenuClassName);
+    }
+
+    public List<WebElement> zeroMoveSuggestedGroupItems() {
+        return driver.findElementsByXPath(zeroMoveContextSuggestedGroupElementsXpath);
+    }
+
+    public List<WebElement> zeroMoveRecentGroupItems() {
+        return driver.findElementsByXPath(zeroMoveContextRecentGroupElementsXpath);
     }
 
 

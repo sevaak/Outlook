@@ -8,6 +8,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 import java.net.MalformedURLException;
@@ -27,10 +28,10 @@ public class BaseTest {
     @BeforeClass
     public void setup() {
         DesiredCapabilities outlookCapabilities = new DesiredCapabilities();
-        outlookCapabilities.setCapability(appCap, localOutlookPath);
-        outlookCapabilities.setCapability(waitAppCap, 5);
+        outlookCapabilities.setCapability(appCap, outlookPath);
+        outlookCapabilities.setCapability(waitAppCap, 13);
         try {
-            outlookSession = new WindowsDriver<WindowsElement>(new URL(localHost), outlookCapabilities);
+            outlookSession = new WindowsDriver<WindowsElement>(new URL(remoteHost), outlookCapabilities);
             outlookFactory = new OutlookFactory(outlookSession);
             helper = new Helpers(outlookSession);
             closeActivationWindow();
@@ -61,7 +62,7 @@ public class BaseTest {
         outlookFactory.replySendButton().click();
     }
 
-    public void deleteMail() throws InterruptedException {
+    public void deleteMail() {
         outlookFactory.menuDrafts().click();
         selectMail(0);
         Actions move = new Actions(outlookSession);
@@ -90,4 +91,8 @@ public class BaseTest {
         }
     }
 
+    @AfterClass
+    public void quit() {
+        outlookSession.quit();
+    }
 }
